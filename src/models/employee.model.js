@@ -14,17 +14,16 @@ var Employee = function(employee){
   this.updated_at     = new Date();
 };
 
-Employee.findAll = function (result) {
-  dbConn.query("Select * from employees", function (err, res) {
-    if(err) {
-      console.log("error: ", err);
-      result(null, err);
-    }
-    else{
-      console.log('employees : ', res);
-      result(null, res);
-    }
-  });
-};
+Employee.findById = function (id, result) {
+  dbConn.query("Select * from employees where id = ? ", id, function (err, res) {
+      if(err) {
+        console.log("error: ", err);
+        result(err, null);
+      }
+      else{
+        result(null, res);
+      }
+    });
+  };
 
 module.exports= Employee;
